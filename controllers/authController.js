@@ -197,7 +197,7 @@ exports.postForgotPassword = async (req, res) => {
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
-    q   pass: process.env.EMAIL_PASS // use app-specific password
+       pass: process.env.EMAIL_PASS // use app-specific password
       }
     });
  
