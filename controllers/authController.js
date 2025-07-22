@@ -85,7 +85,7 @@ exports.postLogin = async (req, res) => {
   } catch (err) {
     console.error('Login error:', err);
     return res.render('auth/login', {
-      usee: null,
+      user: null,
       cartCount: 0,
       error: 'Something went wrong.',
       success: null,
@@ -108,6 +108,7 @@ exports.postSignup = async (req, res) => {
       role: role || 'user', 
       image: imagePath
     });
+    await user.save();
     res.redirect('/login');
   } catch (err) {
     console.error(err);
