@@ -61,7 +61,8 @@ exports.postLogin = async (req, res) => {
     // const user = await User.findOne({
     //   email: new RegExp(`^${email.trim()}$`, 'i')
     // });
-    const user = await User.findOne({ email });
+    console.log("Trying to find user with email:", req.body.email);
+    const user = await User.findOne({ email: req.body.email });
 
     console.log('🧠 User found:', user);
 
@@ -118,7 +119,7 @@ exports.postSignup = async (req, res) => {
         return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
       }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const imagePath = req.file ? '/profile_uploads/' + req.file.filename : '';
 
