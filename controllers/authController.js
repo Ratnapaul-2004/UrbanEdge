@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount: 0, error: null, success: null, siteKey: process.env.RECAPTCHA_SITE_KEY});
+exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount: 0, error: null, success:  req.query.success === 'account_created' ? '✅ Account created successfully. Please login.' : null, siteKey: process.env.RECAPTCHA_SITE_KEY});
 exports.getSignup = (req, res) => {
   const user = req.user || null;
   const cartCount = req.session.cartCount || 0;
@@ -47,6 +47,7 @@ exports.postLogin = async (req, res) => {
     const response = await axios.post(verifyURL);
 
      if (!response.data.success) {
+      console.log('❌ CAPTCHA Error:', response.data);
       return res.render('auth/login', { 
         user: null,
         cartCount: 0,
@@ -110,6 +111,7 @@ exports.postSignup = async (req, res) => {
   try {
     const {name, email, password, role} = req.body;
 
+    const cartCount = req.session.cartCount || 0;
      const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
