@@ -71,7 +71,7 @@ exports.postLogin = async (req, res) => {
           success: null,
           siteKey: process.env.RECAPTCHA_SITE_KEY
       });
-    }
+  }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
