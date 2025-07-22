@@ -190,14 +190,17 @@ exports.postForgotPassword = async (req, res) => {
     await user.save();
 
     // Send email
+    console.log("Email:", process.env.EMAIL_USER);
+    console.log("Pass:", process.env.EMAIL_PASS ? "Loaded" : "Missing");
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-app-password' // use app-specific password
+        user: process.env.EMAIL_USER,
+    q   pass: process.env.EMAIL_PASS // use app-specific password
       }
     });
-
+ 
     const mailOptions = {
       to: user.email,
       from: 'your-email@gmail.com',
