@@ -1,0 +1,70 @@
+ <%- include('../layouts/header', {user, cartCount}) %>
+
+<div class="auth-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card p-4 shadow w-100" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Login</h2>
+
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <form method="POST" action="/login" autocomplete="off">
+      <div class="mb-3">
+        <label for="email">Email:</label>
+        <input 
+        type="email" 
+        name="email" 
+        id="email"
+        class="form-control" 
+        placeholder="Enter your email"
+        required />
+      </div>
+
+      <div class="mb-3">
+        <label for="password">Password:</label>
+        <input
+        type="password" 
+        name="password" 
+        id="password" 
+        class="form-control"
+        autocomplete="new-password" 
+        placeholder="Enter your password"
+        required />
+      </div>
+
+      <div class="g-recaptcha" data-sitekey="<%= siteKey %>"></div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+
+      <div class="text-center mt-3">
+        <a href="/forgot-password" class="text-decoration-none">Forgot Password?</a>
+      </div>
+
+      <div class="text-center mt-3">
+        New User? <a href="/signup" class="text-decoration-none">Sign Up</a>
+      </div>
+    </form>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </div>
+</div>
+
+
+<script>
+  function disableAutofill() {
+    document.querySelector('[name="email"]').value = '';
+    document.querySelector('[name="password"]').value = '';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelector('[name="email"]').value = '';
+      document.querySelector('[name="password"]').value = '';
+    }, 50);
+  });
+</script>
+
+<%- include('../layouts/footer') %>

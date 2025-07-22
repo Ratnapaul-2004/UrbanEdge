@@ -1,0 +1,121 @@
+<%- include('../layouts/header', { user, cartCount }) %>
+
+<!-- Hero Section -->
+<section class="bg-dark text-white py-5">
+  <div class="container text-center">
+    <h1 class="display-4 fw-bold">Welcome to UrbanEdge</h1>
+    <p class="lead">Style meets comfort. Discover the latest fashion & lifestyle products curated just for you.</p>
+    <a href="/products" class="btn btn-warning btn-lg mt-3">🛍️ Start Shopping</a>
+  </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="shop-by-category-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-centerfw-bold mb-4">Shop by Category</h2>
+
+     <!-- Horizontal Scroll Wrapper -->
+    <div class="category-scroll d-flex overflow-auto px-2 gap-4">
+      <% const categories = [
+        { name: "Clothing", img: "/images/categories/Clothing.png" },
+        { name: "Footwear", img: "/images/categories/Footwear.png" },
+        { name: "Accessories", img: "/images/categories/Accessories.png" },
+        { name: "Electronics", img: "/images/categories/Electronics.png" },
+        { name: "Wearable Tech", img: "/images/categories/Wearables.png" },
+        { name: "Lifestyle", img: "/images/categories/Lifestyle.png" },
+        { name: "Women", img: "/images/categories/Women.png" }
+      ]; %>
+
+      <% categories.forEach(category => { %>
+        <a href="/products?category=<%= encodeURIComponent(category.name) %>" class="category-card text-white text-decoration-none position-relative">
+          <div class="category-background" style="background-image: url('<%= category.img %>');"></div>
+          <div class="category-overlay d-flex align-items-center justify-content-center">
+            <h4 class="fw-bold z-2"><%= category.name %></h4>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+
+    <!-- <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <img src="/images/clothing.jpg" class="card-img-top" alt="Clothing">
+          <div class="card-body text-center">
+            <h5 class="card-title">Clothing</h5>
+            <a href="/products?category=clothing" class="btn btn-outline-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <img src="/images/accessories.jpg" class="card-img-top" alt="Accessories">
+          <div class="card-body text-center">
+            <h5 class="card-title">Accessories</h5>
+            <a href="/products?category=accessories" class="btn btn-outline-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <img src="/images/tech.jpg" class="card-img-top" alt="Tech Gadgets">
+          <div class="card-body text-center">
+            <h5 class="card-title">Tech & Wearables</h5>
+            <a href="/products?category=wearable" class="btn btn-outline-primary">Explore</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- CTA Section with Trends -->
+<section class="py-5 text-white text-center" style="background: linear-gradient(135deg, #845EC2, #D65DB1);">
+  <div class="container">
+    <h2 class="fw-bold mb-3">🔥 Trending on UrbanEdge</h2>
+    <div class="d-flex justify-content-center flex-wrap gap-3">
+      <span class="badge bg-light text-dark p-2">#StreetStyle</span>
+      <span class="badge bg-light text-dark p-2">#SmartWearables</span>
+      <span class="badge bg-light text-dark p-2">#BoldAccessories</span>
+      <span class="badge bg-light text-dark p-2">#EcoFashion</span>
+      <span class="badge bg-light text-dark p-2">#SummerEdit</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section
+<section class="py-5 text-center text-white" style="background: linear-gradient(135deg, #ff8a00, #e52e71);">
+  <div class="container">
+    <h2 class="fw-bold">Elevate Your Lifestyle with UrbanEdge</h2>
+    <p class="lead mb-4">Trending now: Limited edition drops & exclusive styles!</p>
+    <a href="/products" class="btn btn-light btn-lg">🔍 Browse Collection</a>
+  </div>
+</section> -->
+
+<!-- CTA Section with Testimonials
+<section class="py-5 bg-white text-dark text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">What Our Customers Say</h2>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="p-4 border rounded shadow-sm">
+          <p>“Super fast delivery and quality beyond expectations. UrbanEdge nailed it!”</p>
+          <strong>- Priya S.</strong>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="p-4 border rounded shadow-sm">
+          <p>“Best tech gadgets collection. The smartwatch I got is amazing!”</p>
+          <strong>- Arjun M.</strong>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="p-4 border rounded shadow-sm">
+          <p>“Love the minimal design and comfy styles. UrbanEdge is now my go-to.”</p>
+          <strong>- Sneha R.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,30 @@
+<%- include('../layouts/header', { user, cartCount }) %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-6">
+      <% if (product.imageUrl) { %>
+        <img src="<%= product.imageUrl %>" class="img-fluid rounded shadow" alt="<%= product.name %>">
+      <% } else { %>
+        <img src="/images/placeholder.png" class="img-fluid rounded shadow" alt="No Image">
+      <% } %>
+    </div>
+
+    <div class="col-md-6">
+      <h2><%= product.name %></h2>
+      <p class="text-muted">Category: <%= product.category %></p>
+      <h4 class="text-success">₹<%= product.price %></h4>
+      <p><%= product.description || 'No description provided.' %></p>
+
+      <form action="/cart/add/<%= product._id %>" method="POST">
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

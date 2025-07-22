@@ -1,0 +1,44 @@
+<%- include('../layouts/header', { user, cartCount }) %>
+
+<div class="container mt-4">
+  <!--Category Tabs -->
+  <ul class="nav nav-tabs justify-content-center mb-4">
+    <li class="nav-item">
+      <a class="nav-link <%= !selectedCategory ? 'active' : '' %>" href="/products">All</a>
+    </li>
+    <% categories.forEach(cat => { %>
+      <li class="nav-item">
+        <a class="nav-link <%= selectedCategory === cat ? 'active' : '' %>" href="/products?category=<%= encodeURIComponent(cat) %>"><%= cat %></a>
+      </li>
+    <% }) %>
+  </ul>
+
+  <!--Product Grid -->
+  <div class="row">
+    <% if (products.length === 0) { %>
+      <div class="col-12 text-center">
+        <p class="text-muted">No products found in this category.</p>
+      </div>
+    <% } %>
+
+    <% products.forEach(product => { %>
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <% if (product.imageUrl) { %>
+            <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.name %>" style="height: 200px; object-fit: cover;">
+          <% } else { %>
+            <img src="/images/placeholder.png" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;">
+          <% } %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text text-muted">₹<%= product.price %></p>
+            <a href="/products/<%= product._id %>" class="btn btn-primary mt-auto">View</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

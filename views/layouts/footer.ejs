@@ -1,0 +1,54 @@
+  </main>
+
+  <footer class="bg-dark text-white py-3 mt-auto">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <p class="mb-2 mb-md-0">&copy; <%= new Date().getFullYear() %> UrbanEdge. All rights reserved.</p>
+      <ul class="nav">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About Us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Contact</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Terms & Conditions</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script>
+    const scrollContainer = document.querySelector('.category-scroll');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    scrollContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      scrollContainer.classList.add('active');
+      startX = e.pageX - scrollContainer.offsetLeft;
+      scrollLeft = scrollContainer.scrollLeft;
+    });
+
+    scrollContainer.addEventListener('mouseleave', () => {
+      isDown = false;
+      scrollContainer.classList.remove('active');
+    });
+
+    scrollContainer.addEventListener('mouseup', () => {
+      isDown = false;
+      scrollContainer.classList.remove('active');
+    });
+
+    scrollContainer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scrollContainer.offsetLeft;
+      const walk = (x - startX) * 2; // scroll-fast multiplier
+      scrollContainer.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+</body>
+
+<!-- Bootstrap JS -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-TBqB7fWvXqj+HujfU3xznStg0zT2XmdUX5JrM7jKQ6PV+gzjDh4BPBChPBvN6A7D"
+  crossorigin="anonymous"
+></script>

@@ -1,0 +1,11 @@
+<%- include('../layouts/header') %>
+
+<div class="container mt-5 mb-5 d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card p-4 shadow-lg text-center" style="max-width: 600px; width: 100%;">
+    <h2 class="mb-3">Admin Dashboard</h2>
+    <p class="mb-4">Welcome, <%= user.name %>! Use the navigation to manage products</p>
+    <a href="/admin/products" class="btn btn-primary btn-lg">Manage Products</a>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

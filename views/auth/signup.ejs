@@ -1,0 +1,103 @@
+<%- include('../layouts/header', {user, cartCount}) %>
+
+<% if (query.message === 'new_user') { %>
+  <div class="alert alert-info">No account found. Please sign up first.</div>
+<% } %>
+
+
+<div class="auth-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow p-4 w-100" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Sign Up</h2>
+
+    <% if (error) { %>
+      <div class="alert alert-danger text-center">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <% if (success) { %>
+      <div class="alert alert-success text-center">
+        <%= success %>
+      </div>
+    <% } %>
+ 
+    <form method="post" action="/signup" autocomplete="off">
+          <div class="mb-3">
+            <label for="name">Name</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            id="name" 
+            name="name" 
+            autocomplete="off"
+            placeholder="Enter your name"
+            required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="email">Email</label>
+            <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            autocomplete="off"
+            placeholder="Enter your mail"
+            required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password">Password</label>
+            <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            autocomplete="new-password"
+            placeholder="Enter a strong password"
+            required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="role">Role</label>
+            <select class="form-select" name="role" required>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="image" class="form-label">Profile Image</label>
+            <input type="file" name="image" accept="image/*" class="form-control">
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">Sign Up</button>
+          </div>
+        
+          <div class="text-center mt-3">
+            Already have an account? <a href="/login" class="text-decoration-none">Login here</a>
+          </div>
+      </form>
+  </div>
+</div>
+
+<script>
+  function disableAutofill() {
+    document.querySelector('[name="email"]').value = '';
+    document.querySelector('[name="password"]').value = '';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelector('[name="email"]').value = '';
+      document.querySelector('[name="password"]').value = '';
+    }, 50); // override autofill after render
+  });
+</script>
+
+<%- include('../layouts/footer') %>

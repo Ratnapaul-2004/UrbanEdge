@@ -1,0 +1,68 @@
+.navbar-profile {
+  position: relative;
+  text-align: center;
+}
+
+.navbar-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.img-thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.category-scroll {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+   -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+.category-card {
+  flex: 0 0 auto;
+  width: 220px;
+  height: 160px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+  z-index: 1;
+  transition: filter 0.3s;
+}
+
+.category-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(2px);
+}

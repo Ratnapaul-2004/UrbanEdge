@@ -1,0 +1,8 @@
+<%- include('../layouts/header', { user: user || null, cartCount: cartCount || 0 }) %>
+
+<h2>Error</h2>
+
+<p><%= message || 'Something went wrong' %></p>
+<a href="/products">Return to Products</a>
+
+<%- include('../layouts/footer') %>

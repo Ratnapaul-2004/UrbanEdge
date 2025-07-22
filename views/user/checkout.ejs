@@ -1,0 +1,27 @@
+<%- include('../layouts/header', { user, cartCount }) %>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4 w-100" style="max-width: 600px;">
+    <h2 class="mb-4 text-center text-primary">Checkout</h2>
+
+    <form method="POST" action="/checkout">
+      <div class="mb-3">
+        <label for="address" class="form-label fw-semibold">Shipping Address:</label>
+        <textarea
+          id="address"
+          name="address"
+          class="form-control"
+          rows="4"
+          placeholder="Enter your complete shipping address"
+          required
+        ></textarea>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" onclick="this.disabled=true; this.form.submit();" class="btn btn-success btn-lg">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,43 @@
+<%- include('../layouts/header', {user, cartCount}) %>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">My Orders</h2>
+
+  <% if (orders && orders.length > 0) { %>
+    <div class="row justify-content-center">
+      <% orders.forEach(order => { %>
+        <div class="col-md-8 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <p><strong>Order ID: </strong><%= order._id %></p>
+              <p><strong>Placed on: </strong><%= order.date.toDateString() %></p>
+              <p><strong>Shipping Address: </strong> <%= order.address %></p>
+
+              <ul class="list-group list-group-flush mb-3">
+                <% order.items.forEach(item => { %>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span><%= item.name %></span>
+                    <span>₹<%= item.price %> x <%= item.quantity %></span>
+                  </li>
+                <% }) %>
+              </ul>
+
+              <p class="fw-bold">Total: ₹<%= order.total %></p>
+
+              <form method="POST" action="/order/delete/<%= order._id %>" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="text-center mt-5">
+      <p class="fs-5">You haven't placed any orders yet.</p>
+      <a href="/products" class="btn btn-primary">Start Shopping</a>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../layouts/footer') %>

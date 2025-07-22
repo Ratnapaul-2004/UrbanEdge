@@ -1,0 +1,57 @@
+<%- include('../layouts/header') %>
+
+<div class="container mt-5">
+  <div class="card p-4 shadow">
+    <h2 class="mb-4">Edit Product</h2>
+    <form action="/admin/products/<%= product._id %>/edit" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select" required>
+          <option value="">Select Category</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Footwear">Footwear</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Wearable Tech">Wearable Tech</option>
+          <option value="Lifestyle & Grooming">Lifestyle & Grooming</option>
+          <option value="Women">Women</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" value="<%= product.name %>" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" name="price" value="<%= product.price %>" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="3"><%= product.description %></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" name="stock" value="<%= product.stock %>" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Change Image (optional)</label>
+        <input type="file"  name="image" class="form-control">
+      </div>
+
+      <% if (product.imageUrl) { %>
+        <div class="mb-3">
+          <img src="<%= product.imageUrl %>" alt="Current Image" class="img-fluid rounded" width="200">
+        </div>
+      <% } else {%>
+          <div class="mb-3">
+            <img src="/images/placeholder.png" alt="No Image" class="img-fluid rounded" width="200">
+          </div>
+      <% } %>
+
+      <button type="submit" class="btn btn-warning">Update Product</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

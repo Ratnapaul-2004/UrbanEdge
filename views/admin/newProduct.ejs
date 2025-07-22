@@ -1,0 +1,46 @@
+<%- include('../layouts/header') %>
+
+<div class="conatiner mt-5">
+  <div class="card p-4 shadow">
+    <h2 class="mb-4">Add New Product</h2>
+    <form action="/admin/products" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select" required>
+          <option value="">Select Category</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Footwear">Footwear</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Wearable Tech">Wearable Tech</option>
+          <option value="Lifestyle & Grooming">Lifestyle & Grooming</option>
+          <option value="Women">Women</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" name="price" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" name="stock" class="form-control" step="0.01" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Image</label>
+        <input type="file" name="image" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

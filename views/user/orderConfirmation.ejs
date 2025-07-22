@@ -1,0 +1,29 @@
+<%- include('../layouts/header', {user, cartCount}) %>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+    <h3 class="text-center mb-4 text-success">Order Confirmed!</h3>
+
+    <p>Thank you for your purchase, <%= user.name %>!</p>
+    <p><strong>Order ID:</strong> <%= order._id %></p>
+    <p><strong>Shipping Address:</strong> <%= order.address %></p>
+    <p><strong>Total Amount:</strong> ₹<%= order.total %></p>
+    <p><strong>Date:</strong> <%= new Date(order.date).toLocaleString() %></p>
+
+    <!-- <h5 class="mt-4">Items:</h5>
+    <ul class="list-group">
+      <% order.items.forEach(item => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span><%= item.name %> x <%= item.quantity %></span>
+          <span>₹<%= item.price * item.quantity %></span>
+        </li>
+      <% }) %>
+    </ul> -->
+
+    <div class="text-center mt-4">
+      <a href="/products" class="btn btn-outline-primary">Continue Shopping</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>
