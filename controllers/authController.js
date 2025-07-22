@@ -47,9 +47,12 @@ exports.postLogin = async (req, res) => {
       });
     }
 
+    console.log('🔍 Trying to login with:', email);
     const user = await User.findOne({
       email: new RegExp(`^${email.trim()}$`, 'i')
     });
+
+    console.log('🧠 User found:', user);
 
        if (!user) {
         return res.render('auth/login', {
@@ -108,7 +111,10 @@ exports.postSignup = async (req, res) => {
       role: role || 'user', 
       image: imagePath
     });
+
+    console.log('👉 Signup attempt:', { name, email });
     await user.save();
+    console.log('✅ User saved:', user);
     res.redirect('/login');
   } catch (err) {
     console.error(err);
@@ -119,7 +125,7 @@ exports.postSignup = async (req, res) => {
 
 exports.logout = (req, res) => {
   res.clearCookie('token');
-  res.render('auth/logout', {user: null, cartCount: 0});
+  // res.render('auth/logout', {user: null, cartCount: 0});
   res.redirect('/login?message=logged_out');
 };
 
