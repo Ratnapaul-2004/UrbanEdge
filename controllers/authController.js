@@ -4,7 +4,16 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount: 0, error: null, success: null, siteKey: process.env.RECAPTCHA_SITE_KEY});
-exports.getSignup = (req, res) => res.render('auth/signup', {user: null, cartCount: 0, error: null, success: null, query: req.query});
+exports.getSignup = (req, res) => {
+  const user = req.user || null;
+  const cartCount = req.session.cartCount || 0;
+
+  res.render('auth/signup', {
+    user,
+    cartCount,
+    query: req.query 
+  });
+};
 exports.getForgotPassword = (req, res) => res.render('auth/forgotPassword', {user: null, cartCount: 0, error: null, message: null, query: req.query});
 
 exports.postLogin = async (req, res) => {

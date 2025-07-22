@@ -1,6 +1,6 @@
 <%- include('../layouts/header', {user, cartCount}) %>
 
-<% if (query.message === 'new_user') { %>
+<% if (query && query.message === 'new_user') { %>
   <div class="alert alert-info">No account found. Please sign up first.</div>
 <% } %>
 
