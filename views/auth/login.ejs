@@ -11,6 +11,8 @@
       <div class="alert alert-success"><%= success %></div>
     <% } %>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
     <form method="POST" action="/login" autocomplete="off">
       <div class="mb-3">
         <label for="email">Email:</label>
@@ -47,8 +49,6 @@
         New User? <a href="/signup" class="text-decoration-none">Sign Up</a>
       </div>
     </form>
-
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </div>
 </div>
 
