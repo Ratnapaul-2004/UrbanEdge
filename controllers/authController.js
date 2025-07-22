@@ -58,9 +58,10 @@ exports.postLogin = async (req, res) => {
     }
 
     console.log('🔍 Trying to login with:', email);
-    const user = await User.findOne({
-      email: new RegExp(`^${email.trim()}$`, 'i')
-    });
+    // const user = await User.findOne({
+    //   email: new RegExp(`^${email.trim()}$`, 'i')
+    // });
+    const user = await User.findOne({ email });
 
     console.log('🧠 User found:', user);
 
