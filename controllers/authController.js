@@ -115,12 +115,11 @@ exports.postSignup = async (req, res) => {
     console.log('👉 Signup attempt:', { name, email });
     await user.save();
     console.log('✅ User saved:', user);
-    res.redirect('/login');
+    return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
   } catch (err) {
     console.error(err);
-    res.redirect('/signup?message=signup_failed');
+    return res.render('auth/signup', { error: "❌ Something went wrong during signup", success: null });
   }
-  
 };
 
 exports.logout = (req, res) => {

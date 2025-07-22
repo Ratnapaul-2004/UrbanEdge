@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config(); // Load environment variables
 
+const mongoose = require('mongose');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -10,6 +11,13 @@ connectDB(); // Connect to MongoDB
 
 const app = express(); // Route Loader
 
+// Verify MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ MongoDB connected'))
+.catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Middleware
 app.use(express.urlencoded({extended: true}));
