@@ -130,7 +130,8 @@ exports.postSignup = async (req, res) => {
     console.log('👉 Signup attempt:', { name, email });
     await user.save();
     console.log('✅ User saved:', user);
-    return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
+    // return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
+    res.redirect('/login?success=account_created');
   } catch (err) {
     console.error(err);
     return res.render('auth/signup', { error: "❌ Something went wrong during signup", success: null });
