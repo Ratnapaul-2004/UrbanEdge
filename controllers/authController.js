@@ -1,9 +1,12 @@
 const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 const User = require('../models/User');
 
 exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount: 0, error: null, success:  req.query.success === 'account_created' ? '✅ Account created successfully. Please login.' : null, siteKey: process.env.RECAPTCHA_SITE_KEY});
+
 exports.getSignup = (req, res) => {
   const user = req.user || null;
   const cartCount = req.session.cartCount || 0;
@@ -14,7 +17,28 @@ exports.getSignup = (req, res) => {
     query: req.query 
   });
 };
+
 exports.getForgotPassword = (req, res) => res.render('auth/forgotPassword', {user: null, cartCount: 0, error: null, message: null, query: req.query});
+
+exports.getResetPassword = async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.redirect('/forgot-password?error=invalid_token');
+    }
+
+    res.render('auth/reset-password', { token }); // create this view
+  } catch (err) {
+    console.error('Reset link error:', err);
+    res.status(500).send("Something went wrong");
+  }
+};
 
 exports.postLogin = async (req, res) => {
   const { email, password, 'g-recaptcha-response': captcha} = req.body;
@@ -148,6 +172,73 @@ exports.logout = (req, res) => {
   res.redirect('/login?message=logged_out');
 };
 
-exports.postForgotPassword = (req, res) => {
-  res.send('Password reset link sent (simulation)');
+exports.postForgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.redirect('/forgot-password?error=user_not_found');
+    }
+
+    // Generate token
+    const token = crypto.randomBytes(20).toString('hex');
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+    await user.save();
+
+    // Send email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'your-email@gmail.com',
+        pass: 'your-app-password' // use app-specific password
+      }
+    });
+
+    const mailOptions = {
+      to: user.email,
+      from: 'your-email@gmail.com',
+      subject: 'Password Reset - UrbanEdge',
+      html: `<p>You requested a password reset. Click <a href="https://urbanedge-backend-5cu3.onrender.com/reset-password/${token}">here</a> to reset your password.</p>`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.redirect('/forgot-password?message=email_sent');
+  } catch (err) {
+    console.error('Error in forgot password:', err);
+    res.status(500).send("Error processing request");
+  }
+};
+
+exports.postResetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.redirect('/forgot-password?error=expired_token');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.redirect('/login?message=password_reset_success');
+  } catch (err) {
+    console.error('Password reset error:', err);
+    res.status(500).send("Error resetting password");
+  }
 };
