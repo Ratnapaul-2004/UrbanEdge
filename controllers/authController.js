@@ -109,6 +109,12 @@ exports.postLogin = async (req, res) => {
 exports.postSignup = async (req, res) => {
   try {
     const {name, email, password, role} = req.body;
+
+     const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
+      }
+
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const imagePath = req.file ? '/profile_uploads/' + req.file.filename : '';
