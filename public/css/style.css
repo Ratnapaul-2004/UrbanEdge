@@ -1,3 +1,15 @@
+body {
+  padding-top: 80px; /* adjust based on header height */
+}
+
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 .navbar-profile {
   position: relative;
   text-align: center;
@@ -66,3 +78,4 @@
   background: rgba(0,0,0,0.3);
   backdrop-filter: blur(2px);
 }
+

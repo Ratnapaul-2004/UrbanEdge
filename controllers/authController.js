@@ -117,44 +117,6 @@ exports.postLogin = async (req, res) => {
   }
 };
 
-// exports.postSignup = async (req, res) => {
-//   try {
-//     const {name, email, password, role} = req.body;
-
-//     const cartCount = req.session.cartCount || 0;
-//      const existingUser = await User.findOne({ email });
-//       if (existingUser) {
-//         return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
-//       }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const imagePath = req.file?.filename ? '/profile_uploads/' + req.file.filename : '';
-
-//     const user = new User({
-//       name, 
-//       email, 
-//       password: hashedPassword, 
-//       role: role || 'user', 
-//       image: imagePath
-//     });
-
-//     console.log('👉 Signup attempt:', { name, email });
-//     await user.save();
-//     console.log('✅ User saved:', user);
-//     // return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
-//     res.redirect('/login?success=account_created');
-//   } catch (err) {
-//     console.error(err);
-//     return res.render('auth/signup', { 
-//       user: req.user || null,
-//       error: "❌ Something went wrong during signup", 
-//       success: null,
-//       cartCount: 0,
-//       query: req.query || {} 
-//     });
-//   }
-// };
 
 exports.postSignup = async (req, res) => {
   try {

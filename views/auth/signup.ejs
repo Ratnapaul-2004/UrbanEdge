@@ -5,7 +5,7 @@
 <% } %>
 
 
-<div class="auth-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+<div class="auth-container d-flex justify-content-center align-items-center bg-light" style="min-height: calc(100vh - 160px); padding-top: 40px; padding-bottom: 40px;">
   <div class="card shadow p-4 w-100" style="max-width: 500px;">
     <h2 class="mb-4 text-center">Sign Up</h2>
 
@@ -62,6 +62,19 @@
           </div>
 
           <div class="mb-3">
+            <label for="confirmPassword">Confirm Password</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="confirmPassword" 
+              name="confirmPassword" 
+              autocomplete="new-password"
+              placeholder="Re-enter your password"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
             <label for="role">Role</label>
             <select class="form-select" name="role" required>
               <option value="user">User</option>
@@ -71,10 +84,11 @@
           </div>
 
           <div class="mb-3">
-            <label for="image" class="form-label">Profile Image</label>
-            <input type="file" name="image" accept="image/*" class="form-control">
+            <label for="image" class="form-label">Profile Image(Optional)</label>
+            <input type="file" name="image" id="image" class="form-control">
           </div>
 
+          <!-- accept="image/*"  -->
           <div class="d-grid">
             <button type="submit" class="btn btn-success">Sign Up</button>
           </div>
