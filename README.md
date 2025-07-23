@@ -25,35 +25,35 @@ A fully-featured backend system for an online e-commerce platform named UrbanEdg
 <pre lang="markdown"><code>
 ```
 UrbanEdge/
-├── config/                       # Configuration files
-│   ├── db.js                     # MongoDB connection
-│   └── multer.js                 # Multer storage configuration
-├── controllers/                  # Route controllers
-│   ├── authController.js         # Signup, login, logout, password reset
-│   └── userController.js         # User logic
-│   └── cartController.js         # Cart logic
-│   └── orderController.js        # Order placement/history
-│   └── checkoutController.js     # Address & checkout logic
-│   └── adminController.js        # Admin activities(Product CRUD)  
-├── models/                       # Mongoose models
+├── config/                         # Configuration files
+│   ├── db.js                       # MongoDB connection
+│   └── multer.js                   # Multer storage configuration
+├── controllers/                    # Route controllers
+│   ├── authController.js           # Signup, login, logout, password reset
+│   └── userController.js           # User logic
+│   └── cartController.js           # Cart logic
+│   └── orderController.js          # Order placement/history
+│   └── checkoutController.js       # Address & checkout logic
+│   └── adminController.js          # Admin activities(Product CRUD)  
+├── models/                         # Mongoose models
 │   ├── User.js
 │   └── Product.js
 │   └── Cart.js
 │   └── Order.js
-├── routes/                       # Express route definitions
+├── routes/                         # Express route definitions
 │   ├── authRoutes.js
 │   └── userRoutes.js
 │   └── cartRoutes.js
 │   └── checkoutRoutes.js
 │   └── orderRoutes.js
 │   └── adminRoutes.js
-├── views/                        # EJS view
+├── views/                          # EJS view
 |   ├── admin/                     
 │   │   ├── dashboard.ejs
 │   │   └── products.ejs
 │   │   └── newProduct.ejs
 │   │   └── editProduct.ejs   
-│   ├── auth/                     # login, signup, forgot password, logout
+│   ├── auth/                       # login, signup, forgot password, logout
 │   │   ├── login.ejs
 │   │   └── signup.ejs
 │   │   └── forgotPassword.ejs
@@ -70,24 +70,24 @@ UrbanEdge/
 |   |   └── orders.ejs
 |   |   └── productDetail.ejs
 |   |   └── products.ejs
-├── public/                      # Static assets
+├── public/                        # Static assets
 │   ├── css/
 │       ├── style.css
-|   └── images/                  # Dashboard product images
+|   └── images/                    # Dashboard product images
 |       ├── categories/ 
-|   └── uploads/                 # Product images
-│   └── profile_uploads/         # Profile pictures
-├── middlewares/                 # Custom middleware 
+|   └── uploads/                   # Product images
+│   └── profile_uploads/           # Profile pictures
+├── middlewares/                   # Custom middleware 
 │   ├── adminMiddleware.js
 │   └── authMiddleware.js
 |   └── imageMiddleware.js
-├── .env                          # Environment variables
+├── .env                           # Environment variables
 ├── .gitignore
-├── app.js                        # Main route handler
+├── app.js                         # Main route handler
 ├── package-lock.json
 ├── package.json
-├── seed.js                       # Product populator(Admin)
-├── server.js                     # Server
+├── seed.js                        # Product populator(Admin)
+├── server.js                      # Server
 └── README.md
 
 ``` </code></pre>
@@ -133,4 +133,4 @@ Integrated reCAPTCHA v2 in the login page for spam protection.
 ## 📬 License
 This project is open-source under the MIT License.
 
-Made with ❤️ by Ratnadeep Paul
+`` Made with ❤️ by Ratnadeep Paul ``
