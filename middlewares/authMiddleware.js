@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Cart = require('../models/Cart');
 
 exports.requireAuth = async (req, res, next) => {
+  console.log('🔒 requireAuth middleware triggered');
   const token = req.cookies.token;
   console.log('Token from cookie:', token);
 
