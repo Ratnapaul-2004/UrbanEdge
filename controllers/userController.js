@@ -13,6 +13,7 @@ exports.getHome = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
   const user = req.user;
+  console.log('User on /products:', user);
   const selectedCategory = req.query.category;
 
   const categories = await Product.distinct('category');

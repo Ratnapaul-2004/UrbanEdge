@@ -100,7 +100,8 @@ exports.postLogin = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 86400000
+      expires: false
+      // maxAge: 86400000
     });
 
     return res.redirect('/');
