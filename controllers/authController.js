@@ -183,7 +183,7 @@ exports.postSignup = async (req, res) => {
     });
 
     // ✅ Redirect or render success
-    res.redirect('/'); // or res.redirect('/dashboard');
+    res.redirect('/login'); 
     
   } catch (err) {
     console.error('Signup Error:', err);
