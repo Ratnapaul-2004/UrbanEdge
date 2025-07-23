@@ -53,15 +53,15 @@ UrbanEdge/
 │   │   └── products.ejs
 │   │   └── newProduct.ejs
 │   │   └── editProduct.ejs   
-│   ├── auth/                       # login, signup, forgot password, logout
+│   └── auth/                       # login, signup, forgot password, logout
 │   │   ├── login.ejs
 │   │   └── signup.ejs
 │   │   └── forgotPassword.ejs
 │   │   └── logout.ejs
-│   ├── layouts/
+│   └── layouts/
 │   │   ├── header.ejs
 │   │   └── footer.ejs
-│   ├── user/
+│   └── user/
 |   |   ├── cart.ejs
 |   |   └── checkout.ejs
 |   |   └── error.ejs
