@@ -35,8 +35,8 @@ exports.requireAuth = async (req, res, next) => {
 
     next();
   } catch (err) {
-    // res.clearCookie('token');
     console.error('JWT Verification Error:', err.message);
+    res.clearCookie('token');
     return res.redirect('/login?message=login_required');
   }
 };
