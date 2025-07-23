@@ -122,6 +122,7 @@ Integrated reCAPTCHA v2 in the login page for spam protection.
 - Handled via ``multer.js`` in the ``config/ folder``
 
 ## 📎 Future Enhancements (Suggestions)
+- Deployment on Render
 - User Image updation
 - Wishlist functionality
 - Razorpay/Stripe Payment Gateway
