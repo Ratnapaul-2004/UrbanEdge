@@ -132,3 +132,5 @@ Integrated reCAPTCHA v2 in the login page for spam protection.
 
 ## 📬 License
 This project is open-source under the MIT License.
+
+Made with ❤️ by Ratnadeep Paul
