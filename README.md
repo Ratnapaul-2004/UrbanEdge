@@ -77,9 +77,8 @@ UrbanEdge/
 |       ├── categories/ 
 |   └── uploads/                   # Product images
 │   └── profile_uploads/           # Profile pictures
-├── middlewares/                   # Custom middleware 
-│   ├── adminMiddleware.js
-│   └── authMiddleware.js
+├── middlewares/                   # Custom middleware  
+│   ├── authMiddleware.js
 |   └── imageMiddleware.js
 ├── .env                           # Environment variables
 ├── .gitignore
