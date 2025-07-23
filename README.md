@@ -94,13 +94,13 @@ UrbanEdge/
 
 ## 🔐 Authentication Flow
 - Signup/Login → stores JWT in cookies
-- Protected Routes (like /cart, /checkout) require a valid JWT
+- Protected Routes (like ``/cart``, ``/checkout``) require a valid JWT
 - Logout → clears cookie
 - reCAPTCHA validation during login to prevent spam bots
 - Profile Pic Upload during signup and editable after login
 
 ## 📦 Admin Panel
-- Login as Admin → /admin/dashboard
+- Login as Admin → ``/admin/dashboard``
 - Add/Edit/Delete Products
 - Upload Product Images via Multer
 - Admin Middleware restricts access to protected routes
@@ -117,9 +117,9 @@ UrbanEdge/
 Integrated reCAPTCHA v2 in the login page for spam protection.
 
 ## 📸 Media Upload
-- Product Images → stored in public/uploads
-- Profile Pictures → stored in public/profile_uploads
-- Handled via multer.js in the config/ folder
+- Product Images → stored in ``public/uploads``
+- Profile Pictures → stored in ``public/profile_uploads``
+- Handled via ``multer.js`` in the ``config/ folder``
 
 ## 📎 Future Enhancements (Suggestions)
 - User Image updation
