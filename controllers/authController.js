@@ -9,12 +9,14 @@ exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount
 
 exports.getSignup = (req, res) => {
   const user = req.user || null;
-  const cartCount = req.session.cartCount || 0;
+  const cartCount = (req.session && req.session.cartCount) || 0;
 
   res.render('auth/signup', {
     user,
     cartCount,
-    query: req.query 
+    query: req.query || {},
+    error: null,
+    success: null 
   });
 };
 
@@ -51,7 +53,7 @@ exports.postLogin = async (req, res) => {
     const response = await axios.post(verifyURL);
 
      if (!response.data.success) {
-      console.log('❌ CAPTCHA Error:', response.data);
+      // console.log('❌ CAPTCHA Error:', response.data);
       return res.render('auth/login', { 
         user: null,
         cartCount: 0,
@@ -61,12 +63,12 @@ exports.postLogin = async (req, res) => {
       });
     }
 
-    console.log('🔍 Trying to login with:', email);
+    // console.log('🔍 Trying to login with:', email);
     // const user = await User.findOne({
     //   email: new RegExp(`^${email.trim()}$`, 'i')
     // });
     console.log("Trying to find user with email:", req.body.email);
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email});
 
     console.log('🧠 User found:', user);
 
@@ -115,36 +117,121 @@ exports.postLogin = async (req, res) => {
   }
 };
 
+// exports.postSignup = async (req, res) => {
+//   try {
+//     const {name, email, password, role} = req.body;
+
+//     const cartCount = req.session.cartCount || 0;
+//      const existingUser = await User.findOne({ email });
+//       if (existingUser) {
+//         return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
+//       }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const imagePath = req.file?.filename ? '/profile_uploads/' + req.file.filename : '';
+
+//     const user = new User({
+//       name, 
+//       email, 
+//       password: hashedPassword, 
+//       role: role || 'user', 
+//       image: imagePath
+//     });
+
+//     console.log('👉 Signup attempt:', { name, email });
+//     await user.save();
+//     console.log('✅ User saved:', user);
+//     // return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
+//     res.redirect('/login?success=account_created');
+//   } catch (err) {
+//     console.error(err);
+//     return res.render('auth/signup', { 
+//       user: req.user || null,
+//       error: "❌ Something went wrong during signup", 
+//       success: null,
+//       cartCount: 0,
+//       query: req.query || {} 
+//     });
+//   }
+// };
+
 exports.postSignup = async (req, res) => {
   try {
-    const {name, email, password, role} = req.body;
+    const { name, email, password, confirmPassword } = req.body;
 
-    const cartCount = req.session.cartCount || 0;
-     const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.render('auth/signup', { error: 'User already exists', success: null, cartCount, query: req.query});
-      }
+    // ✅ Basic validation
+    if (!name || !email || !password || !confirmPassword) {
+      return res.render('auth/signup', {
+        user: null,
+        cartCount: 0,
+        error: '❌ All fields are required.',
+        success: null,
+        query: {}
+      });
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if (password !== confirmPassword) {
+      return res.render('auth/signup', {
+        user: null,
+        cartCount: 0,
+        error: '❌ Passwords do not match.',
+        success: null,
+        query: {}
+      });
+    }
 
-    const imagePath = req.file ? '/profile_uploads/' + req.file.filename : '';
+    // ✅ Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.render('auth/signup', {
+        user: null,
+        cartCount: 0,
+        error: '❌ Email is already registered.',
+        success: null,
+        query: {}
+      });
+    }
 
-    const user = new User({
-      name, 
-      email, 
-      password: hashedPassword, 
-      role: role || 'user', 
-      image: imagePath
+    // ✅ Handle profile image
+    const profileImage = req.file ? req.file.filename : 'default.png'; // fallback image
+
+    // ✅ Hash password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // ✅ Create new user
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      image: profileImage
     });
 
-    console.log('👉 Signup attempt:', { name, email });
-    await user.save();
-    console.log('✅ User saved:', user);
-    // return res.render('auth/login', { success: "✅ Signup successful! Please login.", error: null });
-    res.redirect('/login?success=account_created');
+    await newUser.save();
+
+    // ✅ Create JWT
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+
+    // ✅ Set cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    // ✅ Redirect or render success
+    res.redirect('/'); // or res.redirect('/dashboard');
+    
   } catch (err) {
-    console.error(err);
-    return res.render('auth/signup', { error: "❌ Something went wrong during signup", success: null });
+    console.error('Signup Error:', err);
+    res.render('auth/signup', {
+      user: null,
+      cartCount: 0,
+      error: '❌ Server error. Please try again later.',
+      success: null,
+      query: {}
+    });
   }
 };
 

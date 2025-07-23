@@ -29,7 +29,7 @@ const productUpload = multer({storage, fileFilter});
 //----------Profile Image Upload-------------
 const profileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../public/profile_uploads'));
+    cb(null, 'public/profile_uploads');
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));

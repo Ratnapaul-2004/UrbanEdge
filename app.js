@@ -6,7 +6,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 
-const { getLoggedInUser } = require('./middleware/imageMiddleware');
+const { getLoggedInUser } = require('./middlewares/imageMiddleware');
 
 const connectDB = require('./config/db');
 connectDB(); // Connect to MongoDB
@@ -14,12 +14,12 @@ connectDB(); // Connect to MongoDB
 const app = express(); // Route Loader
 
 // Middleware
+app.use(cookieParser());
 app.use(getLoggedInUser);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('public'));
+// app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use('/profile_uploads', express.static(path.join(__dirname, 'public/profile_uploads')));
 
