@@ -1,5 +1,5 @@
 body {
-  padding-top: 80px; /* adjust based on header height */
+  padding-top: 80px; 
 }
 
 
@@ -34,7 +34,7 @@ header {
 .category-scroll {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-   -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
 

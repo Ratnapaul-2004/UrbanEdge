@@ -5,7 +5,13 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const User = require('../models/User');
 
-exports.getLogin = (req, res) => res.render('auth/login', {user: null, cartCount: 0, error: null, success:  req.query.success === 'account_created' ? '✅ Account created successfully. Please login.' : null, siteKey: process.env.RECAPTCHA_SITE_KEY});
+exports.getLogin = (req, res) => res.render('auth/login', {
+  user: null, 
+  cartCount: 0, 
+  error: null, 
+  success:  req.query.success === 'account_created' ? '✅ Account created successfully. Please login.' : null, 
+  siteKey: process.env.RECAPTCHA_SITE_KEY
+});
 
 exports.getSignup = (req, res) => {
   const user = req.user || null;
@@ -20,7 +26,13 @@ exports.getSignup = (req, res) => {
   });
 };
 
-exports.getForgotPassword = (req, res) => res.render('auth/forgotPassword', {user: null, cartCount: 0, error: null, message: null, query: req.query});
+exports.getForgotPassword = (req, res) => res.render('auth/forgotPassword', {
+  user: null, 
+  cartCount: 0, 
+  error: null, 
+  message: null, 
+  query: req.query
+});
 
 exports.postLogin = async (req, res) => {
   const { email, password, 'g-recaptcha-response': captcha} = req.body;
@@ -53,7 +65,6 @@ exports.postLogin = async (req, res) => {
     const response = await axios.post(verifyURL);
 
      if (!response.data.success) {
-      // console.log('❌ CAPTCHA Error:', response.data);
       return res.render('auth/login', { 
         user: null,
         cartCount: 0,
@@ -63,10 +74,6 @@ exports.postLogin = async (req, res) => {
       });
     }
 
-    // console.log('🔍 Trying to login with:', email);
-    // const user = await User.findOne({
-    //   email: new RegExp(`^${email.trim()}$`, 'i')
-    // });
     console.log("Trying to find user with email:", req.body.email);
     const user = await User.findOne({ email});
 
@@ -101,7 +108,6 @@ exports.postLogin = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       expires: false
-      // maxAge: 86400000
     });
 
     return res.redirect('/');
@@ -123,7 +129,7 @@ exports.postSignup = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
 
-    // ✅ Basic validation
+    // ✅ Basic Validation
     if (!name || !email || !password || !confirmPassword) {
       return res.render('auth/signup', {
         user: null,
@@ -200,7 +206,6 @@ exports.postSignup = async (req, res) => {
 
 exports.logout = (req, res) => {
   res.clearCookie('token');
-  // res.render('auth/logout', {user: null, cartCount: 0});
   res.redirect('/login?message=logged_out');
 };
 

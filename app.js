@@ -19,10 +19,8 @@ app.use(getLoggedInUser);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use('/profile_uploads', express.static('public/profile_uploads'));
-// app.use('/profile_uploads', express.static(path.join(__dirname, 'public/profile_uploads')));
 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;

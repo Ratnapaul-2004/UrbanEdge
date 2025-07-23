@@ -5,7 +5,11 @@ exports.getCheckout = async (req, res) => {
   const user = req.user;
   const cart = await Cart.findOne({userId: user._id});
   const items = cart ? cart.items : [];
-  res.render('user/checkout', {cart: items, user, cartCount: items.length});
+  res.render('user/checkout', {
+    cart: items, 
+    user, 
+    cartCount: items.length
+  });
 };
 
 exports.postCheckout = async (req, res) => {
@@ -36,9 +40,6 @@ exports.postCheckout = async (req, res) => {
     if (!order || !order._id) {
       throw new Error('Order creation failed or _id missing');
     }
-
-    // cart.items = [];
-    // await cart.save();
 
     console.log("Final Order Object:", order);
     console.log("Cart Items Length:", cart.items.length);

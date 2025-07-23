@@ -10,16 +10,6 @@
     <p><strong>Total Amount:</strong> ₹<%= order.total %></p>
     <p><strong>Date:</strong> <%= new Date(order.date).toLocaleString() %></p>
 
-    <!-- <h5 class="mt-4">Items:</h5>
-    <ul class="list-group">
-      <% order.items.forEach(item => { %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span><%= item.name %> x <%= item.quantity %></span>
-          <span>₹<%= item.price * item.quantity %></span>
-        </li>
-      <% }) %>
-    </ul> -->
-
     <div class="text-center mt-4">
       <a href="/products" class="btn btn-outline-primary">Continue Shopping</a>
     </div>
